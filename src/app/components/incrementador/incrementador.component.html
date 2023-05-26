@@ -1,0 +1,25 @@
+<div class="input-group">
+  <span class="input-group-btn">
+      <button class="btn {{colorBarra}}"
+
+               type="button" (click)="cambiarValor( -5 )"
+                >
+        <span class="fa fa-minus"></span>
+      </button>
+  </span>
+  <input type="text"
+        class="form-control"
+        [class.is-invalid]="progreso > 100 || progreso < 0 "
+        placeholder="valor porcentaje"
+        (ngModelChange)="onChange($event)"
+        [(ngModel)]="progreso"
+        min="0"
+         max="100" >
+    <span class="input-group-btn">
+      <button class="btn {{colorBarra}}"
+              type="button"
+              (click)="cambiarValor( 5 )" >
+          <span class="fa fa-plus"></span>
+      </button>
+    </span>
+</div>

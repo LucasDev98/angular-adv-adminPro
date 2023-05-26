@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
-import { HeaderComponent } from './header/header.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { FormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
 
+
+
+import { IncrementadorComponent } from './incrementador/incrementador.component';
+import { DonutComponent } from './donut/donut.component';
 
 
 @NgModule({
-  declarations:[
-    HeaderComponent,
-    BreadcrumbsComponent,
-    SidebarComponent
+  declarations: [
+    IncrementadorComponent,
+    DonutComponent
   ],
-  imports:[],
+  imports: [
+    FormsModule,
+    NgChartsModule
+  ],
   exports:[
-    HeaderComponent,
-    BreadcrumbsComponent,
-    SidebarComponent
+    IncrementadorComponent,
+    DonutComponent
   ]
 })
-
-
-export class ComponentsModule {
-
-}
+export class ComponentsModule { }
