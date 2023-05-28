@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 
 //MODULES
-import { SharedModule } from '../shared/components.module';
+import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
 
 //PAGES
@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { ProgressComponent } from './progress/progress.component';
+import { AcountSettingComponent } from './acount-setting/acount-setting.component';
 
 
 
@@ -21,7 +22,8 @@ import { ProgressComponent } from './progress/progress.component';
     DashboardComponent,
     PagesComponent,
     Grafica1Component,
-    ProgressComponent
+    ProgressComponent,
+    AcountSettingComponent
   ],
   imports:[
     ComponentsModule,
@@ -35,7 +37,8 @@ import { ProgressComponent } from './progress/progress.component';
     DashboardComponent,
     PagesComponent,
     Grafica1Component,
-    ProgressComponent
+    ProgressComponent,
+    AcountSettingComponent
   ]
 })
 
