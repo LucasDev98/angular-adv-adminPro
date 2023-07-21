@@ -14,6 +14,8 @@ import { PagesComponent } from './pages.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { ProgressComponent } from './progress/progress.component';
 import { AcountSettingComponent } from './acount-setting/acount-setting.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 
@@ -23,7 +25,9 @@ import { AcountSettingComponent } from './acount-setting/acount-setting.componen
     PagesComponent,
     Grafica1Component,
     ProgressComponent,
-    AcountSettingComponent
+    AcountSettingComponent,
+    PromesasComponent,
+    RxjsComponent
   ],
   imports:[
     ComponentsModule,
@@ -38,7 +42,8 @@ import { AcountSettingComponent } from './acount-setting/acount-setting.componen
     PagesComponent,
     Grafica1Component,
     ProgressComponent,
-    AcountSettingComponent
+    AcountSettingComponent,
+    PromesasComponent
   ]
 })
 
