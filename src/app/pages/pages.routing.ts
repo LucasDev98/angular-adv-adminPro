@@ -9,29 +9,47 @@ import { PagesComponent } from './pages.component';
 import { AcountSettingComponent } from './acount-setting/acount-setting.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { AuthGuard } from '../guards/auth.guard';
 
-
-
-const routes : Routes = [
-   //Protected Routes
-   {path:'dashboard',
-   component: PagesComponent,
-   children:[
-     { path:'', component:DashboardComponent, data: { titulo: 'Dashboard'} },
-     { path:'grafica1', component:Grafica1Component, data: { titulo: 'Grafica 1'}  },
-     { path:'progress', component:ProgressComponent, data: { titulo: 'ProgressBar'}  },
-     { path:'account-setting', component:AcountSettingComponent, data: { titulo: 'Ajustes'}  },
-     { path:'promesas', component:PromesasComponent, data: { titulo: 'Promesas'} },
-     { path:'rxjs', component:RxjsComponent, data: { titulo: 'RxJS'} },
-   ],
-  }
-]
+const routes: Routes = [
+  //Protected Routes
+  {
+    path: 'dashboard',
+    component: PagesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: DashboardComponent,
+        data: { titulo: 'Dashboard' },
+      },
+      {
+        path: 'grafica1',
+        component: Grafica1Component,
+        data: { titulo: 'Grafica 1' },
+      },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+        data: { titulo: 'ProgressBar' },
+      },
+      {
+        path: 'account-setting',
+        component: AcountSettingComponent,
+        data: { titulo: 'Ajustes' },
+      },
+      {
+        path: 'promesas',
+        component: PromesasComponent,
+        data: { titulo: 'Promesas' },
+      },
+      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJS' } },
+    ],
+  },
+];
 
 @NgModule({
-
- imports:[RouterModule.forChild( routes )],
- exports:[RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-
-
 export class PagesRouterModule {}

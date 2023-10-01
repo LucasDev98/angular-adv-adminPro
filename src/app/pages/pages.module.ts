@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PagesRouterModule } from './pages.routing';
 import { FormsModule } from '@angular/forms';
 
-
 //MODULES
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
@@ -17,37 +16,30 @@ import { AcountSettingComponent } from './acount-setting/acount-setting.componen
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
-
-
 @NgModule({
-  declarations:[
+  declarations: [
     DashboardComponent,
     PagesComponent,
     Grafica1Component,
     ProgressComponent,
     AcountSettingComponent,
     PromesasComponent,
-    RxjsComponent
+    RxjsComponent,
   ],
-  imports:[
+  imports: [
     ComponentsModule,
     FormsModule,
     SharedModule,
     PagesRouterModule,
-    CommonModule
-
+    CommonModule,
   ],
-  exports:[
+  exports: [
     DashboardComponent,
     PagesComponent,
     Grafica1Component,
     ProgressComponent,
     AcountSettingComponent,
-    PromesasComponent
-  ]
+    PromesasComponent,
+  ],
 })
-
-
-export class PagesModule {
-
-}
+export class PagesModule {}
