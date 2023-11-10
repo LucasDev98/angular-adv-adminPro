@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsuarioModel } from 'src/app/models/usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,7 +8,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService) {}
+  public profile: UsuarioModel;
+  constructor(private authService: AuthService) {
+    this.profile = this.authService.user;
+  }
 
   logOut() {
     this.authService.logOut();

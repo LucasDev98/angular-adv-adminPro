@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Sample Form with the right Icons</h4>
+        <h6 class="card-subtitle">made with bootstrap elements</h6>
+        <form (submit)="actualizarPerfil()" class="form p-t-20" [formGroup]="perfilForm">
+          <div class="form-group">
+            <label for="exampleInputuname2">Name</label>
+            <div class="input-group">
+              <input type="text" formControlName="name" class="form-control" id="exampleInputuname2"
+                placeholder="Username">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputuname2">Last Name</label>
+            <div class="input-group">
+              <input type="text" formControlName="lastName" class="form-control" id="exampleInputuname2"
+                placeholder="Username">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">Email address</label>
+            <div class="input-group">
+              <input type="email" [readOnly]="usuario.google" formControlName="email" class="form-control"
+                id="exampleInputEmail2" placeholder="Enter email">
+              <div class="input-group-addon"><i class="ti-email"></i></div>
+            </div>
+          </div>
+
+          <div class="text-left">
+            <button [disabled]="perfilForm.invalid" type="submit"
+              class="btn btn-success btn-block waves-effect waves-light m-r-10">
+              <span class="fa fa-save"></span>
+              Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Avatar</h4>
+        <h6 class="card-subtitle">Imagen del Usurio</h6>
+        <img *ngIf="!img_temp" [src]="usuario.imgUrl" class="sombra img-avatar">
+        <img *ngIf="img_temp" [src]="img_temp" class="sombra img-avatar">
+        <input type="file" (change)="getImage($any($event.target).files[0])">
+        <br>
+        <br>
+        <button [disabled]="!imgProfile" (click)="updateImage()"
+          class="btn btn-block btn-success waves-effect waves-light m-r-10">
+          <span class="fa fa-save"></span>
+          Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

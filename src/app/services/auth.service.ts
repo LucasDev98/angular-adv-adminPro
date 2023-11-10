@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment.dev';
 import { loginUser } from '../interfaces/login-form.interface';
 import { tap, map, catchError, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { UsuarioModel } from '../models/usuario.model';
 
 declare const google: any;
 
@@ -14,6 +15,7 @@ declare const google: any;
 })
 export class AuthService {
   private url = environment.url;
+  public user: UsuarioModel;
 
   constructor(
     private http: HttpClient,
@@ -22,12 +24,31 @@ export class AuthService {
   ) {}
 
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-
     return this.http
-      .get(`${this.url}/login/renew`, { headers: { 'x-token': token } })
+      .get(`${this.url}/login/renew`, { headers: { 'x-token': this.token } })
       .pipe(
         tap((res: any) => {
+          console.log(res);
+          const {
+            name,
+            lastName,
+            email,
+            password = '',
+            img,
+            role,
+            google,
+            uid,
+          } = res.user;
+          this.user = new UsuarioModel(
+            name,
+            lastName,
+            email,
+            password,
+            img,
+            role,
+            google,
+            uid
+          );
           localStorage.setItem('token', res.token);
         }),
         map((res) => true),
@@ -35,6 +56,23 @@ export class AuthService {
       );
   }
 
+  get token() {
+    return localStorage.getItem('token') || '';
+  }
+
+  actualizarPerfil(data: {
+    name: string;
+    lastName: string;
+    role: string;
+    email: string;
+  }) {
+    data = { ...data, role: this.user.role };
+    return this.http.put(`${this.url}/usuarios/${this.user.uid}`, data, {
+      headers: {
+        'x-token': this.token,
+      },
+    });
+  }
   logOut() {
     if (localStorage.getItem('googleEmail')) {
       console.log(localStorage.getItem('googleEmail'));
