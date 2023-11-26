@@ -7,6 +7,7 @@ import { loginUser } from '../interfaces/login-form.interface';
 import { tap, map, catchError, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { UsuarioModel } from '../models/usuario.model';
+import { ResponseUsuarios } from '../interfaces/response-usuarios.interface';
 
 declare const google: any;
 
@@ -33,8 +34,8 @@ export class AuthService {
             name,
             lastName,
             email,
-            password = '',
             img,
+            password = '',
             role,
             google,
             uid,
@@ -43,8 +44,8 @@ export class AuthService {
             name,
             lastName,
             email,
-            password,
             img,
+            password,
             role,
             google,
             uid
@@ -60,6 +61,13 @@ export class AuthService {
     return localStorage.getItem('token') || '';
   }
 
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
+  }
   actualizarPerfil(data: {
     name: string;
     lastName: string;
@@ -67,11 +75,11 @@ export class AuthService {
     email: string;
   }) {
     data = { ...data, role: this.user.role };
-    return this.http.put(`${this.url}/usuarios/${this.user.uid}`, data, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+    return this.http.put(
+      `${this.url}/usuarios/${this.user.uid}`,
+      data,
+      this.headers
+    );
   }
   logOut() {
     if (localStorage.getItem('googleEmail')) {
@@ -111,6 +119,46 @@ export class AuthService {
         localStorage.setItem('googleEmail', res.user.email);
         localStorage.setItem('token', res.token);
       })
+    );
+  }
+
+  getUsuarios(desde: number = 0) {
+    const url = `${this.url}/usuarios?from=${desde}`;
+    return this.http.get<ResponseUsuarios>(url, this.headers).pipe(
+      map((resp) => {
+        console.log(resp);
+        const users = resp.users.map(
+          (user) =>
+            new UsuarioModel(
+              user.name,
+              user.lastName,
+              user.email,
+              user.img,
+              '',
+              user.role,
+              user.google,
+              user.uid
+            )
+        );
+
+        return {
+          users,
+          total: resp.total,
+        };
+      })
+    );
+  }
+
+  deleteUser(id) {
+    return this.http.delete(`${this.url}/usuarios/${id}`, this.headers);
+  }
+
+  updateRole(usuario: UsuarioModel) {
+    // data = { ...data, role: this.user.role };
+    return this.http.put(
+      `${this.url}/usuarios/${usuario.uid}`,
+      usuario,
+      this.headers
     );
   }
 }

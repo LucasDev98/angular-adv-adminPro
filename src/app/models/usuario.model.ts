@@ -6,21 +6,24 @@ export class UsuarioModel {
     public name: string,
     public lastName: string,
     public email: string,
-    public password?: string,
     public img?: string,
+    public password?: string,
     public role?: string,
     public google?: Boolean,
     public uid?: string
   ) {}
 
   get imgUrl() {
-    if (this.img.includes('https')) {
-      return this.img;
-    }
-    if (this.img) {
-      return `${base_url}/uploads/users/${this.img}`;
+    let pathImg = '';
+    // console.log(this.img);
+    if (!this.img) {
+      pathImg = `${base_url}/uploads/users/no-image`;
+    } else if (this.img.includes('https')) {
+      pathImg = this.img;
     } else {
-      return `${base_url}/uploads/users/no-image`;
+      pathImg = `${base_url}/uploads/users/${this.img}`;
     }
+
+    return pathImg;
   }
 }

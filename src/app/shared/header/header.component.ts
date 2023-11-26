@@ -11,6 +11,8 @@ export class HeaderComponent {
   public profile: UsuarioModel;
   constructor(private authService: AuthService) {
     this.profile = this.authService.user;
+    console.log('desde aqui');
+    console.log(this.profile);
   }
 
   logOut() {

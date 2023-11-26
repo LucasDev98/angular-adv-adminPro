@@ -26,3 +26,26 @@
   border-radius: 50%;
   display: flex;
 }
+
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.fondo-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.cursor {
+  cursor: pointer;
+}
