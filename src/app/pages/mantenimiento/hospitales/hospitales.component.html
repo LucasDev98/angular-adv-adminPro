@@ -1,0 +1,77 @@
+<div class="row animated animate-fadeIn">
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input type="text" placeholder="Busacar usuario" class="form-control" #term (keyup)="findHospital(term.value)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="loading">
+  <div class="col-12">
+    <div class="alert alert-primary text-center" role="alert">
+      <h3 class="alert-header">
+        Cargando
+      </h3>
+      <i class="fa fa-spin fa-3x fa-refresh"></i>
+      <p class="mb-0">Por favor espere..</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row" *ngIf="!loading">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <h4 class="card-title">Tabla de Usuarios ( {{ totalHospitals }} )</h4>
+            <h6 class="card-subtitle">Usuarios</h6>
+          </div>
+          <div class="col text-right">
+            <button (click)="createHospital()" class="btn btn-primary">
+              Crear Hospital
+              <i class="fa fa-hospital-o"></i>
+            </button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Nombre</th>
+                <th class="text-nowrap">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let hospital of hospitals">
+                <td class="text-center">
+                  <img (click)="cambiarImagen(hospital)" [src]="hospital.img | imagen : 'hospitals' "
+                    class="avatar cursor" alt="imagen avatar">
+                </td>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="hospital.name" placeholder="Nombre del hospital">
+                </td>
+
+                <td class="text-nowrap text-center">
+                  <a (click)="updateHospital( hospital )" style="cursor: pointer;" data-toggle="tooltip"
+                    data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                  <a style="cursor: pointer;" (click)="deleteHospital( hospital )" data-toggle="tooltip"
+                    data-original-title="Borrar"> <i class="fa fa-close text-danger"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!--.card-body-->
+    </div><!--.card-->
+
+  </div><!--.col-12-->
+</div><!--.row-->

@@ -15,6 +15,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public users: UsuarioModel[] = [];
   public currentValue = 0;
   public users_temp: any[] = [];
+  public loading: boolean = true;
   public $subImg: Subscription;
   constructor(
     private authService: AuthService,
@@ -35,9 +36,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   showUsers() {
+    this.loading = true;
     this.authService
       .getUsuarios(this.currentValue)
       .subscribe(({ total, users }) => {
+        this.loading = false;
         this.totalUsuarios = total;
         this.users = users;
         this.users_temp = users;

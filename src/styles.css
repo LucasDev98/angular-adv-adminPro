@@ -31,7 +31,9 @@
   width: 40px;
   border-radius: 50%;
 }
-
+.w-200 {
+  width: 200px;
+}
 .fondo-modal {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;

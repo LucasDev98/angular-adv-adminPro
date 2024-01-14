@@ -1,0 +1,81 @@
+<div class="row animated animate-fade-">
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input type="text" placeholder="Busacar usuario" class="form-control" #term (keyup)="findMedical(term.value)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="loading">
+  <div class="col-12">
+    <div class="alert alert-primary text-center" role="alert">
+      <h3 class="alert-header">
+        Cargando
+      </h3>
+      <i class="fa fa-spin fa-3x fa-refresh"></i>
+      <p class="mb-0">Por favor espere..</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row" *ngIf="!loading">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <h4 class="card-title">Tabla de Medicos ( {{ totalMedicals }} )</h4>
+            <h6 class="card-subtitle">Medicos</h6>
+          </div>
+          <div class="col text-right">
+            <a routerLink="/dashboard/medico/nuevo" class="btn btn-primary">
+              Crear Medico
+              <i class="fa fa-hospital-o"></i>
+            </a>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Nombre</th>
+                <th>Hospital</th>
+                <th class="text-nowrap">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let medico of medicals">
+                <td class="text-center">
+                  <img (click)="cambiarImagen(medico)" [src]="medico.img | imagen : 'medicals' " class="avatar cursor"
+                    alt="imagen avatar">
+                </td>
+                <td>
+                  <p> {{medico.name }}</p>
+                </td>
+                <td>
+                  <p>{{medico.hospital == undefined ? "No tiene Hospital Asignado" : medico.hospital.name }}</p>
+                </td>
+
+                <td class="text-nowrap text-center">
+                  <a [routerLink]="['/dashboard','medico', medico._id ]" style="cursor: pointer;" data-toggle="tooltip"
+                    data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                  <a style="cursor: pointer;" (click)="deleteMedical( medico )" data-toggle="tooltip"
+                    data-original-title="Borrar"> <i class="fa fa-close text-danger"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!--.card-body-->
+    </div><!--.card-->
+
+  </div><!--.col-12-->
+</div><!--.row-->

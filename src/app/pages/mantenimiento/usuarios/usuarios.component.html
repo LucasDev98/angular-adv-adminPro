@@ -10,7 +10,7 @@
 </div>
 
 
-<!-- <div class="row">
+<div class="row" *ngIf="loading">
   <div class="col-12">
     <div class="alert alert-primary text-center" role="alert">
       <h3 class="alert-header">
@@ -20,11 +20,11 @@
       <p class="mb-0">Por favor espere..</p>
     </div>
   </div>
-</div> -->
+</div>
 
 
 
-<div class="row">
+<div class="row" *ngIf="!loading">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
