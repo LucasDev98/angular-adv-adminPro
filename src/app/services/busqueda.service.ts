@@ -45,6 +45,10 @@ export class BusquedaService {
         )
     );
   }
+  getAllByTerm( termino ){
+    const url = `${url_base}/search/${termino}`;
+    return this.http.get(url, this.headers);
+  }
   getModelMedicals(results: MedicalModel[]) {
     return results.map(
       (medical) =>

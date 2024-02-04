@@ -24,12 +24,18 @@ export class AuthService {
     private ngZone: NgZone
   ) {}
 
+
+  dataLocalStorage( token : string, menu : any ) {
+    //Aca se almacenará  el token y el menu
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
   validarToken(): Observable<boolean> {
     return this.http
       .get(`${this.url}/login/renew`, { headers: { 'x-token': this.token } })
       .pipe(
-        tap((res: any) => {
-          console.log(res);
+        tap((response: any) => {
+       
           const {
             name,
             lastName,
@@ -39,7 +45,7 @@ export class AuthService {
             role,
             google,
             uid,
-          } = res.user;
+          } = response.user;
           this.user = new UsuarioModel(
             name,
             lastName,
@@ -50,7 +56,7 @@ export class AuthService {
             google,
             uid
           );
-          localStorage.setItem('token', res.token);
+          this.dataLocalStorage(response.token, response.menu);
         }),
         map((res) => true),
         catchError((error) => of(false))
@@ -59,6 +65,10 @@ export class AuthService {
 
   get token() {
     return localStorage.getItem('token') || '';
+  }
+
+  get role () : 'ADMIN_ROLE' | 'USER_ROLE'{
+    return this.user.role;
   }
 
   get headers() {
@@ -87,9 +97,13 @@ export class AuthService {
       google.accounts.id.revoke(localStorage.getItem('googleEmail'), () => {
         this.ngZone.run(() => {
           this.router.navigateByUrl('auth/login');
+          localStorage.removeItem('menu');
+          localStorage.removeItem('token');
         });
       });
     }
+    localStorage.removeItem('menu');
+    localStorage.removeItem('token');
     this.router.navigateByUrl('auth/login');
   }
 
@@ -97,7 +111,8 @@ export class AuthService {
     //RegisterUser contiene lo necesario para registrar un usuario
     return this.http.post(`${this.url}/usuarios`, formData).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.dataLocalStorage(response.token, response.menu);
+ 
       })
     );
   }
@@ -106,7 +121,7 @@ export class AuthService {
     //loginUser contiene la data necesaria para el login
     return this.http.post(`${this.url}/login`, formData).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.dataLocalStorage(response.token, response.menu);
       })
     );
   }
@@ -114,10 +129,10 @@ export class AuthService {
   loginWithGoogle(token) {
     console.log(token);
     return this.http.post(`${this.url}/login/google`, { token }).pipe(
-      tap((res: any) => {
-        console.log(res);
-        localStorage.setItem('googleEmail', res.user.email);
-        localStorage.setItem('token', res.token);
+      tap((response: any) => {
+        this.dataLocalStorage(response.token, response.menu);
+        localStorage.setItem('googleEmail', response.user.email);
+        
       })
     );
   }

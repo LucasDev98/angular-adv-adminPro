@@ -1,30 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SidebarService {
-  menu: any[] = [
-    {
-      titulo: 'Principal',
-      icon: 'mdi mdi-gauge',
-      subMenuItems: [
-        { titulo: 'main', url: '/' },
-        { titulo: 'Progress Bar', url: 'progress' },
-        { titulo: 'Graphs', url: 'grafica1' },
-        { titulo: 'Promesas', url: 'promesas' },
-        { titulo: 'Rxjs', url: 'rxjs' },
-      ],
-    },
-    {
-      titulo: 'Mantenimientos',
-      icon: 'mdi mdi-folder-lock-open',
-      subMenuItems: [
-        { titulo: 'Usuarios', url: 'users' },
-        { titulo: 'Medicos', url: 'medicos' },
-        { titulo: 'hospitales', url: 'hospitales' },
-      ],
-    },
+export class SidebarService{
+  menu: any = [
+
   ];
-  constructor() {}
+
+  constructor() {
+   
+  }
+  
+  cargarMenu() {
+    this.menu = JSON.parse(localStorage.getItem('menu')) || [];
+  }
+  
+
+  
 }

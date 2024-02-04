@@ -8,7 +8,7 @@ export class UsuarioModel {
     public email: string,
     public img?: string,
     public password?: string,
-    public role?: string,
+    public role?: 'USER_ROLE' | 'ADMIN_ROLE',
     public google?: Boolean,
     public uid?: string
   ) {}
