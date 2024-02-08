@@ -12,13 +12,7 @@ const url_base = environment.url;
 export class BusquedaService {
   constructor(private http: HttpClient) {}
 
-  get headers() {
-    return {
-      headers: {
-        'x-token': localStorage.getItem('token'),
-      },
-    };
-  }
+
   getModelUsers(results: UsuarioModel[]) {
     return results.map(
       (user) =>
@@ -47,7 +41,7 @@ export class BusquedaService {
   }
   getAllByTerm( termino ){
     const url = `${url_base}/search/${termino}`;
-    return this.http.get(url, this.headers);
+    return this.http.get(url);
   }
   getModelMedicals(results: MedicalModel[]) {
     return results.map(
@@ -67,7 +61,7 @@ export class BusquedaService {
   ): any {
     const url = `${url_base}/search/collection/${tipo}/${termino}`;
     console.log(url);
-    return this.http.get(url, this.headers).pipe(
+    return this.http.get(url).pipe(
       map((resp: any) => {
         console.log(resp.data);
         switch (tipo) {

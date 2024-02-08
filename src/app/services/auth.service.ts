@@ -71,13 +71,7 @@ export class AuthService {
     return this.user.role;
   }
 
-  get headers() {
-    return {
-      headers: {
-        'x-token': this.token,
-      },
-    };
-  }
+
   actualizarPerfil(data: {
     name: string;
     lastName: string;
@@ -88,7 +82,7 @@ export class AuthService {
     return this.http.put(
       `${this.url}/usuarios/${this.user.uid}`,
       data,
-      this.headers
+      // this.headers
     );
   }
   logOut() {
@@ -139,7 +133,7 @@ export class AuthService {
 
   getUsuarios(desde: number = 0) {
     const url = `${this.url}/usuarios?from=${desde}`;
-    return this.http.get<ResponseUsuarios>(url, this.headers).pipe(
+    return this.http.get<ResponseUsuarios>(url).pipe(
       map((resp) => {
         console.log(resp);
         const users = resp.users.map(
@@ -165,15 +159,14 @@ export class AuthService {
   }
 
   deleteUser(id) {
-    return this.http.delete(`${this.url}/usuarios/${id}`, this.headers);
+    return this.http.delete(`${this.url}/usuarios/${id}`);
   }
 
   updateRole(usuario: UsuarioModel) {
     // data = { ...data, role: this.user.role };
     return this.http.put(
       `${this.url}/usuarios/${usuario.uid}`,
-      usuario,
-      this.headers
+      usuario
     );
   }
 }

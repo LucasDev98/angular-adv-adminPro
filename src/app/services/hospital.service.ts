@@ -13,26 +13,16 @@ const base_url = environment.url;
 export class HospitalService {
   constructor(private http: HttpClient) {}
 
-  get token() {
-    return localStorage.getItem('token') || '';
-  }
-  get headers() {
-    return {
-      headers: {
-        'x-token': this.token,
-      },
-    };
-  }
   /**---CRUD HOSPITAL---**/
   createHospital(name: string) {
     const url = `${base_url}/hospitals`;
 
-    return this.http.post(url, { name: name, img: 'no-image' }, this.headers);
+    return this.http.post(url, { name: name, img: 'no-image' });
   }
   getHospitals() {
     const url = `${base_url}/hospitals`;
 
-    return this.http.get(url, this.headers).pipe(
+    return this.http.get(url).pipe(
       map((resp: { ok: true; hospitals: Hospital[] }) => {
         return resp.hospitals;
       })
@@ -42,12 +32,12 @@ export class HospitalService {
   UpdateHospital(_id, name) {
     const url = `${base_url}/hospitals/${_id}`;
 
-    return this.http.put(url, { name }, this.headers);
+    return this.http.put(url, { name });
   }
 
   DeleteHospital(_id) {
     const url = `${base_url}/hospitals/${_id}`;
 
-    return this.http.delete(url, this.headers);
+    return this.http.delete(url);
   }
 }

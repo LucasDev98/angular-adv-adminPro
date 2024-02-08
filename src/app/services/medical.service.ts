@@ -11,19 +11,11 @@ const base_url = environment.url;
 export class MedicalService {
   constructor(private http: HttpClient) {}
 
-  get token() {
-    return localStorage.getItem('token') || '';
-  }
-  get headers() {
-    return {
-      headers: {
-        'x-token': this.token,
-      },
-    };
-  }
+  
+ 
   getMedicals() {
     const url = `${base_url}/medicals`;
-    return this.http.get(url, this.headers).pipe(
+    return this.http.get(url).pipe(
       map((resp: { ok: true; medicals: MedicalModel[] }) => {
         return resp.medicals;
       })
@@ -33,7 +25,7 @@ export class MedicalService {
     const url = `${base_url}/medicals/${id}`;
 
     return this.http
-      .get(url, this.headers)
+      .get(url)
       .pipe(
         map((resp: { ok: boolean; medical: MedicalModel }) => resp.medical)
       );
@@ -42,15 +34,15 @@ export class MedicalService {
   createMedical(medical: { name; hospital_id }) {
     const url = `${base_url}/medicals`;
 
-    return this.http.post(url, medical, this.headers);
+    return this.http.post(url, medical);
   }
   deleteMedical(id: string) {
     const url = `${base_url}/medicals/${id}`;
-    return this.http.delete(url, this.headers);
+    return this.http.delete(url);
   }
   updateMedical(medical: MedicalModel) {
     const url = `${base_url}/medicals/${medical._id}`;
 
-    return this.http.put(url, medical, this.headers);
+    return this.http.put(url, medical);
   }
 }
